@@ -1,0 +1,17 @@
+1 - Dado el DNI o identificador de un alumno, busca sus 5 mejores notas.
+SELECT 
+
+2 - Dada una asignatura, muestra de manera descendente las notas más altas, independientemente del examen.
+SELECT 
+
+3 - Lista los 5 profesores con mayor antigüedad (supón que tienen un campo llamado “fechaInicio”).
+SELECT 
+
+4 - ¿Qué asignatura tiene la peor nota de examen?
+SELECT 
+
+5 - Obtén la nota media de un alumno.
+SELECT 
+
+6 - Dado el nombre de un profesor muestra las asignaturas y las aulas en las que se imparten.
+SELECT 
