@@ -1,17 +1,91 @@
 1 - Dado el DNI o identificador de un alumno, busca sus 5 mejores notas.
+
+/* Cambiar "DNI" por el valor que se desea Buscar*/
 SELECT 
+  Exam_Grades.grade AS 'notas' 
+FROM 
+  (
+    Person 
+    INNER JOIN Students ON Person.dni = 'DNI' 
+    and Person.id = Students.person_id
+  ) 
+  INNER JOIN Exam_Grades ON Exam_Grades.student_id = Students.id 
+ORDER BY 
+  Exam_Grades.grade DESC 
+LIMIT 
+  5;
 
 2 - Dada una asignatura, muestra de manera descendente las notas más altas, independientemente del examen.
+
+/* Cambiar "ASIGNATURA" por el valor que se desea Buscar*/
 SELECT 
+  Exam_Grades.grade AS 'notas' 
+FROM 
+  (
+    Subjects 
+    INNER JOIN Exams ON Subjects.id = Exams.subject_id 
+    AND Subjects.name = 'ASIGNATURA'
+  ) 
+  INNER JOIN Exam_Grades ON Exam_Grades.exam_id = Exams.id 
+ORDER BY 
+  Exam_Grades.grade;
 
 3 - Lista los 5 profesores con mayor antigüedad (supón que tienen un campo llamado “fechaInicio”).
+
 SELECT 
+  * 
+FROM 
+  Teachers 
+ORDER BY 
+  Teachers.fechaInicio ASC 
+LIMIT 
+  5;
 
 4 - ¿Qué asignatura tiene la peor nota de examen?
+
 SELECT 
+  Subjects.name AS 'materia', 
+  Exam_Grades.grade 'nota' 
+FROM 
+  (
+    Subjects 
+    INNER JOIN Exams ON Subjects.id = Exams.subject_id
+  ) 
+  INNER JOIN Exam_Grades ON Exam_Grades.exam_id = Exams.id 
+ORDER BY 
+  Exam_Grades.grade ASC 
+LIMIT 
+  1;
 
 5 - Obtén la nota media de un alumno.
+
+/* Cambiar "DNI" por el valor que se desea Buscar*/
 SELECT 
+  AVG(Exam_Grades.grade) AS 'notaMedia' 
+FROM 
+  (
+    Person 
+    INNER JOIN Students ON Person.id = Students.person_id 
+    AND Person.dni = 'DNI'
+  ) 
+  INNER JOIN Exam_Grades ON Exam_Grades.student_id = Students.id;
 
 6 - Dado el nombre de un profesor muestra las asignaturas y las aulas en las que se imparten.
+
+/* Cambiar "PROFESOR" por el valor que se desea Buscar*/
 SELECT 
+  Subjects.name AS 'materia', 
+  Classrooms.name AS 'aula' 
+FROM 
+  (
+    (
+      (
+        Person 
+        INNER JOIN Teachers ON Person.id = Teachers.person_id 
+        AND Person.first_name = 'PROFESOR'
+      ) 
+      INNER JOIN Schedule ON Schedule.teacher_id = Teachers.id
+    ) 
+    INNER JOIN Subjects ON Subjects.id = Schedule.subject_id
+  ) 
+  INNER JOIN Classrooms ON Classrooms.id = Schedule.classroom_id;
